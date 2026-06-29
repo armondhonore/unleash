@@ -2,22 +2,22 @@ application:
   name: unleash
   pods:
   - name: app
-    image: unleashorg/unleash-server:latest
+    image: mirror.gcr.io/unleashorg/unleash-server:latest
     path: /
     servicePorts:
     - 4242
     vars:
-      DATABASE_URL: "postgres://unleash:unleash@postgres.pod:5432/unleash"
+      DATABASE_URL: "postgres://unleash:${POSTGRES_PASSWORD}@postgres.pod:5432/unleash"
       DATABASE_SSL: "false"
       LOG_LEVEL: warn
   - name: postgres
-    image: postgres:16-alpine
+    image: mirror.gcr.io/library/postgres:16-alpine
     servicePorts:
     - 5432
     vars:
       POSTGRES_DB: unleash
       POSTGRES_USER: unleash
-      POSTGRES_PASSWORD: unleash
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     volumes:
     - name: unleash-db
       mountPath: /var/lib/postgresql/data
