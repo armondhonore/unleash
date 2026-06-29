@@ -10,10 +10,6 @@ application:
       DATABASE_URL: "postgres://unleash:unleash@postgres.pod:5432/unleash"
       DATABASE_SSL: "false"
       LOG_LEVEL: warn
-    volumes:
-    - name: unleash-data
-      mountPath: /unleash
-      size: 5Gi
   - name: postgres
     image: postgres:16-alpine
     servicePorts:
